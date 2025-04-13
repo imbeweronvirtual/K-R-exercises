@@ -1,0 +1,232 @@
+#include <stdio.h>
+#include <ctype.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdbool.h>
+#include <math.h>
+#include <time.h>
+
+#define STRING_MAX_LENGTH 10000 
+#define TAB_LENGTH 4 
+
+int main() {
+    int chars_limit = 0; 
+
+    
+
+    {
+        char c; 
+        short res = 0; 
+        char last_char; 
+        while (1)
+        {
+            printf("Enter how many chars do you want to see in one string: ");
+            res = scanf("%d%c", &chars_limit, &last_char);
+            if (res == EOF)
+            {
+                return 1;
+            }
+            if (chars_limit > 0 && isspace(last_char))
+            {
+                break;
+            }
+            while ((c = getchar()) != '\n' && c != EOF); 
+        }
+    }
+
+    char *str = malloc(sizeof(char) * STRING_MAX_LENGTH); 
+    if (str == NULL)
+    {
+        return 1;
+    }
+    
+    clock_t start_time = clock();
+
+    while (fgets(str, STRING_MAX_LENGTH, stdin) != NULL) 
+    {
+        const unsigned int str_length = strlen(str);
+        unsigned int *index_array = NULL; 
+        bool *copy_or_replace_array = NULL; 
+        unsigned int size = (double)str_length / chars_limit; 
+        
+        if (str_length > chars_limit)
+        {
+            
+            index_array = malloc(sizeof(unsigned int) * size);
+            copy_or_replace_array = malloc(sizeof(bool) * size);
+            
+            if (index_array == NULL)
+            {
+                return 1;
+            }
+            if (copy_or_replace_array == NULL)
+            {
+                return 1;
+            }
+        } else 
+        {
+            for (size_t i = 0; str[i] != '\0'; i++)
+            {
+                printf("%c", str[i]);
+            }
+            continue;
+        }
+        
+        
+        
+       
+        unsigned long index_array_index = 0;
+        unsigned int length = 0; 
+        bool is_succesful = false; 
+        index_array[0] = 0; 
+
+        for (unsigned int i = 0; i < str_length; i++)
+        {
+            if (str[i] == '\t') 
+            {
+                length += TAB_LENGTH - (length % TAB_LENGTH); 
+                                                              
+            } else
+            {
+                length++;
+            }
+            
+            if (length > chars_limit)
+            {
+                if (str[i] == '\n')
+                {
+                    is_succesful = true; 
+                }
+                
+                if (index_array_index + 1 > size)
+                {
+                    
+                    size *= 2;
+                    {
+                        unsigned int *temp = realloc(index_array, sizeof(unsigned int) * size);
+                        if (temp == NULL)
+                        {
+                            printf("UNSUCCS");
+                            free(str);
+                            free(index_array);
+                            free(copy_or_replace_array);
+                            return 1;
+                        }
+                        index_array = temp; 
+                    }
+                    {
+                        bool *temp = realloc(copy_or_replace_array, sizeof(bool) * size);
+                        if (temp == NULL)
+                        {
+                            printf("UNSUCCS");
+                            free(str);
+                            free(index_array);
+                            free(copy_or_replace_array);
+                            return 1;
+                        }
+                        copy_or_replace_array = temp; 
+                    }
+                    
+                }
+                
+                
+                bool is_edge = false; 
+
+                for (unsigned int j = i - 1; j > 0 && !is_succesful; j--)
+                {
+                    switch (index_array_index > 0)
+                    {
+                    case true:
+                        if (index_array[index_array_index - 1] == j)
+                        {
+                            is_edge = true;
+                        }
+                        break;
+                    
+                    default:
+                        if (index_array[index_array_index] == j)
+                        {
+                            is_edge = true;
+                        }
+                        break;
+                    }
+
+
+                    if (isspace(str[j]) && !is_succesful && !is_edge)
+                    {
+                        index_array[index_array_index] = j;
+                        copy_or_replace_array[index_array_index] = 1;
+                        i = j;
+                        index_array_index++;
+                        length = 0;
+                        is_succesful = true;
+                        break;
+                    }
+                }
+
+                if (!is_succesful)
+                {
+                    index_array[index_array_index] = i - 2;
+                    i -= 2;
+                    copy_or_replace_array[index_array_index] = 0;
+                    index_array_index++;
+                    length = 0;
+                }
+                
+                is_succesful = false;
+            }
+        }
+
+        
+        for (size_t i = 0; i <= index_array_index - 1; i++)
+        {
+            printf("amount: %ld position: %d and t/f: %d\n", index_array_index, index_array[i], copy_or_replace_array[i]); 
+        }
+        
+        {
+            int index_array_index_max_possible = index_array_index - 1; 
+            index_array_index = 0;
+
+            for (size_t i = 0; i < str_length; i++)
+            {
+                if (index_array[index_array_index] == i) 
+                {
+                    switch (copy_or_replace_array[index_array_index])
+                    {
+                    case true:
+                        printf("\n"); 
+                        break;
+                    
+                    case false:
+                        printf("%c", str[i]);
+                        printf("\n"); 
+                        break;
+                    }
+                    if (index_array_index + 1 <= index_array_index_max_possible) 
+                    {
+                        index_array_index++;
+                    }
+                    
+                    continue;
+                }
+                printf("%c", str[i]);
+                
+            }
+        }
+
+        
+        index_array = NULL;
+
+        free(copy_or_replace_array);
+        copy_or_replace_array = NULL;
+    }
+
+    free(str);
+    str = NULL;
+    
+    double elapsed_time = (double)(clock() - start_time) / CLOCKS_PER_SEC;
+    printf("\nDone in %.3f seconds\n", elapsed_time);
+
+    return 0;
+}
+
