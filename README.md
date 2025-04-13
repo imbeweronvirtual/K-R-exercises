@@ -1,5 +1,6 @@
 # K-R-exercises
 A solution of exercises from a K&amp;R The C Programming Language book
+```
 1.13-1.24/
 ├── 1.13-1.14/
 │   ├── solution.c done & not checked
@@ -37,3 +38,4 @@ A solution of exercises from a K&amp;R The C Programming Language book
     ├── solution.c done & checked
     ├── input.txt no need to check
     └── output.txt done & checked
+```
