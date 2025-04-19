@@ -2,7 +2,7 @@
 
 int main() {
     char words_array[5][25];
-    int letters_array[26];
+    char letters_array[26];
     for (size_t i = 0; i < (sizeof(words_array) / sizeof(words_array[0])); i++) {
         printf("Input word %d: ", i + 1);
         scanf("%24s", words_array[i]);

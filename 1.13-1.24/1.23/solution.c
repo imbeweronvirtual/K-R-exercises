@@ -3,19 +3,19 @@
 #include <stdbool.h>
 
 #define MAX_STRING_LENGTH 1000
-#define MAX_STRING_AMOUNT_LENGTH 500
+#define MAX_STRINGS_AMOUNT 500
 
 
 int main()
 {
-    char str[MAX_STRING_AMOUNT_LENGTH][MAX_STRING_LENGTH];
+    char str[MAX_STRINGS_AMOUNT][MAX_STRING_LENGTH];
 
     long index = 0;
 
     while(fgets(str[index], MAX_STRING_LENGTH, stdin) != NULL)
     {
         index++;
-        if (index >= MAX_STRING_AMOUNT_LENGTH)
+        if (index >= MAX_STRINGS_AMOUNT)
         {
             break;
         }
@@ -56,7 +56,7 @@ int main()
                 else if (next_char == '*')
                 {
                     in_comments_multiple = true;
-                    j += 2;
+                    j += 1;
                     continue;
                 }
             } else if (!in_qoutes && !in_escape && current_char == '*')
@@ -68,16 +68,7 @@ int main()
                 }
             } else if (current_char == '"' || current_char == '\'' && !in_escape)
             {
-                switch (in_qoutes)
-                {
-                case true:
-                    in_qoutes = false;
-                    break;
-                
-                default:
-                    in_qoutes = true;
-                    break;
-                }
+                in_qoutes = !in_qoutes;
             } else if (current_char == '\\' && !in_qoutes)
             {
                 in_escape_scope_end = j + 2;

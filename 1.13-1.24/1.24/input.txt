@@ -15,48 +15,31 @@ void find_break(const char *original_array, unsigned int *array_of_indexes, bool
 int main() {
     const int chars_limit = limit_input(); // how many chars does the user want to see in one string
 
-    char *str = malloc(sizeof(char) * STRING_MAX_LENGTH); // allocating memory for string array
-    if (str == NULL)
-    {
-        return 1;
-    }
+    char str[STRING_MAX_LENGTH];
     
     clock_t start_time = clock();
 
     while (fgets(str, STRING_MAX_LENGTH, stdin) != NULL) // save input from terminal in str array
     {
         const unsigned int str_length = strlen(str);
-        unsigned int *index_array = NULL; // declare pointer in while scope so the program can allocate memory later
-        bool *copy_or_replace_array = NULL; // declare pointer in while scope so the program can allocate memory later
+        unsigned int index_array[STRING_MAX_LENGTH * 2]; // declare pointer in while scope so the program can allocate memory later
+        bool copy_or_replace_array[STRING_MAX_LENGTH * 2]; // declare pointer in while scope so the program can allocate memory later
         unsigned int size = (double)str_length / chars_limit; // potentially size for index_array and copy_or_replace_array, not precise
         
-        if (str_length > chars_limit)
-        {
-            /*
-            these two arrays(index & copy_or_replace) working together, the first one
-            stores indexes where the program need to place \n, the second one stores
-            true/false values where true is to chenge char on this index in str array
-            and false is to add \n after this index in str array, example:
-            index_array = [5]
-            copy_or_replace_array = [1]
+        /*
+        these two arrays(index & copy_or_replace) working together, the first one
+        stores indexes where the program need to place \n, the second one stores
+        true/false values where true is to chenge char on this index in str array
+        and false is to add \n after this index in str array, example:
+        index_array = [5]
+        copy_or_replace_array = [1]
 
-            str = ['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd']
+        str = ['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd']
 
-            str after formatting = ['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd']
-            */
-            index_array = malloc(sizeof(unsigned int) * size);
-            copy_or_replace_array = malloc(sizeof(bool) * size);
-            
-            if (index_array == NULL)
-            {
-                return 1;
-            }
-            if (copy_or_replace_array == NULL)
-            {
-                return 1;
-            }
-        } else // if string was smaller then chars_limit program can just print the original string
-        {
+        str after formatting = ['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd']
+        */
+
+        if (str_length <= chars_limit) {
             formatted_string_output(str, NULL, NULL, 0);
             continue;
         }
@@ -83,41 +66,7 @@ int main() {
             }
             
             if (length > chars_limit)
-            {
-                if (index_array_iterator + 1 > size)
-                {
-                    /*
-                    if index_array and copy_or_replace_array are full we reallocate the memory by multipliyng
-                    the origin size by 2
-                    */
-                    size *= 2;
-                    {
-                        unsigned int *temp = realloc(index_array, sizeof(unsigned int) * size);
-                        if (temp == NULL)
-                        {
-                            printf("UNSUCCS");
-                            free(str);
-                            // free(index_array);
-                            free(copy_or_replace_array);
-                            return 1;
-                        }
-                        index_array = temp; // if succesful store new pointer in old one
-                    }
-                    {
-                        bool *temp = realloc(copy_or_replace_array, sizeof(bool) * size);
-                        if (temp == NULL)
-                        {
-                            printf("UNSUCCS");
-                            free(str);
-                            free(index_array);
-                            // free(copy_or_replace_array);
-                            return 1;
-                        }
-                        copy_or_replace_array = temp; // if succesful store new pointer in old one
-                    }
-                    
-                }
-                
+            {   
                 if (str[i] != '\n')
                 {
                     find_break(str, index_array, copy_or_replace_array, &index_array_iterator, chars_limit, &i);
@@ -134,16 +83,7 @@ int main() {
         */
 
         formatted_string_output(str, index_array, copy_or_replace_array, index_array_iterator);
-
-        free(index_array);
-        index_array = NULL;
-
-        free(copy_or_replace_array);
-        copy_or_replace_array = NULL;
     }
-
-    free(str);
-    str = NULL;
     
     double elapsed_time = (double)(clock() - start_time) / CLOCKS_PER_SEC;
     printf("\nDone in %.3f seconds\n", elapsed_time);

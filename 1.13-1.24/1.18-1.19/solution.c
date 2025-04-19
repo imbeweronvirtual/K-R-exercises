@@ -57,7 +57,7 @@ void reverse(char to[], char from[])
     unsigned int j;
     i = 0;
     j = 0;
-    for (; from[i] != 0 && from[i] != 10; i++)
+    for (; from[i] != '\0' && from[i] != '\n'; i++)
     {
         ;
     }
@@ -73,16 +73,16 @@ void reverse(char to[], char from[])
 void delete_spaces(char to[],char from[])
 {
     char last_letter;
-    char now_letter;
-    for (size_t i = 0, j = 0; from[i] != 0; i++)
+    char current_letter;
+    for (size_t i = 0, j = 0; from[i] != '\0'; i++)
     {
-        now_letter = from[i];
-        if (now_letter == ' ' && last_letter == ' ' || now_letter == '\t' && last_letter == '\t')
+        current_letter = from[i];
+        if (current_letter == ' ' && last_letter == ' ' || current_letter == '\t' && last_letter == '\t')
         {
             continue;
         }
         to[j] = from[i];
-        last_letter = now_letter;
+        last_letter = current_letter;
         j++;
     }
     

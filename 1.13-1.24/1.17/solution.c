@@ -8,12 +8,10 @@ void copy(char to[], char from[]);
 int main()
 {
     int len; /* длина текущей строки */
-    int max; /* длина максимальной из просмотренных строк */
     unsigned int i = 0;
     char line[MAXLINE]; /* текущая строка */
-    char longest[MAXLINE]; /* самая длинная строка */
     char lines_array[100][MAXLINE];
-    max = 0;
+
     while ((len = get_line(line, MAXLINE)) > 0) 
     {
         if (line[len - 1] != '\n')
@@ -23,11 +21,6 @@ int main()
                 len++;
             }
         }
-        
-        if (len > max) {
-        max = len;
-        copy(longest, line);
-        }
 
         if (len > 80)
         {
@@ -36,10 +29,8 @@ int main()
         }
         
     }
-    if (max > 0) {/* была ли хоть одна строка? */
-    printf("%s With the length of %d", longest, max);
-    }
-    for (size_t j = 0; j <= i; j++)
+
+    for (size_t j = 0; j < i; j++)
     {
         printf("%s", lines_array[j]);
     }
