@@ -5,12 +5,13 @@
 #define MAX_STRING_LENGTH 1000
 #define MAX_STRINGS_AMOUNT 500
 
+void comments_deleter(const char original_string[][MAX_STRING_LENGTH], unsigned int stop_point);
 
 int main()
 {
     char str[MAX_STRINGS_AMOUNT][MAX_STRING_LENGTH];
 
-    long index = 0;
+    unsigned int index = 0;
 
     while(fgets(str[index], MAX_STRING_LENGTH, stdin) != NULL)
     {
@@ -24,31 +25,36 @@ int main()
     /*
     multiple stirngs can be hard
     */
+    
+    comments_deleter(str, index);
 
-   bool in_comments_single = false;
-   bool in_comments_multiple = false;
+    return 0;
+}
+
+void comments_deleter(const char original_string[][MAX_STRING_LENGTH], unsigned int stop_point)
+{
+    bool in_comments_multiple = false;
    
-   for (size_t i = 0; i < index; i++)
-   {
+    for (size_t i = 0; i < stop_point; i++)
+    {
         bool in_qoutes = false;
         bool in_escape = false;
         unsigned int in_escape_scope_end = 0;
-        for (size_t j = 0; j < MAX_STRING_LENGTH && str[i][j] != '\0'; j++)
+        for (size_t j = 0; j < MAX_STRING_LENGTH && original_string[i][j] != '\0'; j++)
         {
-            char current_char = str[i][j];
-            char next_char = str[i][j + 1];
+            char current_char = original_string[i][j];
+            char next_char = original_string[i][j + 1];
 
             if (in_escape_scope_end == j)
             {
                 in_escape = false;
             }
             
-
             if (!in_qoutes && !in_escape && current_char == '/')
             {
                 if (next_char == '/')
                 {
-                    while (str[i][j] != '\n')
+                    while (original_string[i][j] != '\n')
                     {
                         j++;
                     }
@@ -56,7 +62,7 @@ int main()
                 else if (next_char == '*')
                 {
                     in_comments_multiple = true;
-                    j += 1;
+                    j++;
                     continue;
                 }
             } else if (!in_qoutes && !in_escape && current_char == '*')
@@ -77,16 +83,8 @@ int main()
             
             if (!in_comments_multiple)
             {
-                printf("%c", str[i][j]);
+                printf("%c", original_string[i][j]);
             }
-            
         }
-        
     }
-    
-    
-
-    
-
-    return 0;
 }

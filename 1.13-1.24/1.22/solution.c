@@ -163,14 +163,6 @@ void find_break(const char *original_array, unsigned int *array_of_indexes, bool
 
     for (unsigned int j = *i; j > 0 && !is_succesful && j > *i - limit; j--)
     {
-        // if (*amount > 0)
-        // {
-        //     if (array_of_indexes[*amount - 1] == j)
-        //     {
-        //         is_edge = true;
-        //     }
-        // }
-
         if (isspace(original_array[j]) && !is_succesful)
         {
             array_of_indexes[*amount] = j;

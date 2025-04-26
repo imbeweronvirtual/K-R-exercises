@@ -46,11 +46,11 @@ int main() {
         
         
         /*
-        if (str[strlen(str) - 1] == '\n')
+        if (str[strlen(str) - 1] == '\n'
         str[strlen(str) - 1] = '\0';
         */
        
-        unsigned long index_array_iterator = 0; // iterator
+        unsigned long index_array_iterator = 0; // iterator(
         unsigned int length = 0; // length of already checked chars
         bool is_succesful = false; // variable to spot other cycle if the first one worked succesfully
 
@@ -78,7 +78,7 @@ int main() {
         /*
         for (size_t i = 0; i <= index_array_iterator - 1; i++)
         {
-            printf("amount: %ld position: %d and t/f: %d\n", index_array_iterator, index_array[i], copy_or_replace_array[i]); // DEBUG
+            printf("amou(nt: %ld position: %d and t/f: %d\n", index_array_iterator, index_array[i], copy_or_replace_array[i]); // DEBUG
         }
         */
 
@@ -86,7 +86,7 @@ int main() {
     }
     
     double elapsed_time = (double)(clock() - start_time) / CLOCKS_PER_SEC;
-    printf("\nDone in %.3f seconds\n", elapsed_time);
+    printf("\nDone in %.3f seco(nds\n", elapsed_time);
 
     return 0;
 }
