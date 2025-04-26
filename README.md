@@ -75,8 +75,16 @@ K-R-EXERCISES/
     │   ├── solution.c done & not checked
     │   ├── input.txt not done
     │   └── flowchart done & not checked
-    └── Anton's exercise/
-        ├── solution.c done & checked
-        ├── input.txt no need to check
-        └── output.txt done & checked
+    ├── Anton's exercise/
+    │   ├── solution.c done & checked
+    │   ├── input.txt no need to check
+    │   └── output.txt done & checked
+    └── CS50-and-additional-exercises/
+        ├── credit-card-number-validator/
+        │   ├── credit.c done & checked
+        │   └── flowchart done & not checked
+        ├── email-validator/
+        │   └── email-validation.c
+        └── tree-painting/
+            └── tree-painting.c
 ```
