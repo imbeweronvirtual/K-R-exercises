@@ -107,7 +107,6 @@ int main()
 
     int lastLetter = -1; // a place to store last character, by default -1 so we don't have
     //problems with ASCII
-    
     int currentLetter; // a place to store current character
     const char email[] = "this.the.fourty.nine.signs.e-mail.and.it.is.valid@it.s.the.fourty.nine.signs.domain.and.it.is.valid"; //we're inputing e-mail adress here
     size_t lengthOfEmail = strlen(email); // we need length of the string, so we can check first and last letter
