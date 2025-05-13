@@ -84,7 +84,9 @@ K-R-EXERCISES/
     │   ├── credit.c done & checked
     │   └── flowchart done & not checked
     ├── email-validator/
-    │   └── email-validation.c
-    └── tree-painting/
-        └── tree-painting.c
+    │   └── email-validation.c done & checked
+    ├── tree-painting/
+    │   └── tree-painting.c done & checked
+    └── substitution/
+        └── substitution.c done & checked
 ```
