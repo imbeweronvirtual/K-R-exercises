@@ -15,14 +15,19 @@ int main()
     unsigned int i = 0;
     while (get_line(term, MAXLINE) > 0)
     {
+        if (term[0] == '\n')
+        {
+            continue;
+        }
+        
         delete_spaces(string_array[i],term);
         i++;
     }
     for (size_t j = 0; j < i; j++)
     {
-        printf("%s\n",string_array[j]);
+        printf("%s",string_array[j]);
     }
-    reverse(term,string_array[0]);
+    // reverse(term,string_array[0]);
     printf("%s\n",term);
     return 0;
 }
