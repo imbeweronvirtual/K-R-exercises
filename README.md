@@ -75,6 +75,11 @@ K-R-EXERCISES/
 │       ├── solution.c done & not checked
 │       ├── input.txt not done
 │       └── flowchart done & not checked
+├── 2.1-2.10/
+|   ├── 2.1/
+|   |   └── solution.c done & not checked
+|   └── 2.2/
+|       └── solution.c done & not checked
 ├── Anton's exercise/
 │   ├── solution.c done & checked
 │   ├── input.txt no need to check
