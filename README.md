@@ -82,7 +82,9 @@ K-R-EXERCISES/
 |   |   └── solution.c done & not checked
 |   ├── 2.3/
 |   |   └── solution.c done & not checked
-|   └── 2.4/
+|   ├── 2.4-2.5/
+|   |   └── solution.c done & not checked
+|   └── 2.6/
 |       └── solution.c done & not checked
 ├── Anton's exercise/
 │   ├── solution.c done & checked
