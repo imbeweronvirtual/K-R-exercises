@@ -90,6 +90,15 @@ K-R-EXERCISES/
 |   |   └── solution.c done & not checked
 |   └── 2.10/
 |       └── solution.c done & not checked
+├── 3.1-3.6/
+|   ├── 3.1/
+|   |   └── solution.c done & not checked
+|   ├── 3.2/
+|   |   └── solution.c done & not checked
+|   ├── 3.3/
+|   |   └── solution.c done & not checked
+|   └── 3.4/
+|       └── solution.c done & not checked
 ├── Anton's exercise/
 │   ├── solution.c done & checked
 │   ├── input.txt no need to check
