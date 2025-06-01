@@ -50,7 +50,6 @@ unsigned getbits(unsigned x, int p, int n)
     return (x >> (p+1-n)) & ~(~0 << n);
 }
 
-
 unsigned int setbits(unsigned int x, unsigned int p, unsigned int n, unsigned int y) 
 {
     if (p + 1 < n)
@@ -88,16 +87,28 @@ unsigned int invert(unsigned int x, unsigned int p, unsigned int n)
 }
 
 
-unsigned char rightrot(unsigned char x, unsigned char n)
 /*
 this function works with unsigned int too, just replace
 all "char" types on int in this function
+For example:
+    1. We take x as 148 bitwise 10010100
+    2. We take n as 3
+    3. We create temp variable that has n(3) LSB bits set as 1
+    4. We copy n(3) LSB bits from x(148) to temp
+    5. We shift these bits to MSB
 */
+unsigned char rightrot(unsigned char x, unsigned char n)
 {
-    unsigned char temp = ((1 << n) - 1);
-    temp &= x;
-    temp <<= sizeof(unsigned char) * 8 - n;
+    unsigned char temp = ((1 << n) - 1);  // 00000111
+    temp &= x; // 00000100
+    temp <<= sizeof(unsigned char) * 8 - n; // 10000000
 
+    /*
+    temp = 128(10000000 bitwise)
+    x = 148(10010100 bitwise)
+    x >> n(3) = 18(00010010)
+    128 | 18 = 10000000 | 00010010 = 10010010
+    */
     return temp | (x >> n);
 }
 
