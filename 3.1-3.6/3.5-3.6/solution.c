@@ -11,9 +11,11 @@ int main()
     int num = 992934;
     char str[100];
 
+    // test hex, F26A6 expected
     itob(num, str, 16);
     printf("%s\n", str);
 
+    // test octal, 3623246 expected
     itob(num, str, 8);
     printf("%s\n", str);
 

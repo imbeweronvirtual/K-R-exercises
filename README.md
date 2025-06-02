@@ -101,10 +101,13 @@ K-R-EXERCISES/
 │   │   └── solution.c done & not checked
 │   └── 3.5-3.6/
 │       └── solution.c done & not checked
-├── Anton's exercise/
-│   ├── solution.c done & checked
-│   ├── input.txt no need to check
-│   └── output.txt done & checked
+├── Antons-exercises/
+│   ├── lifo/
+│   │   └── solution.c done & not checked
+│   └── strings_sort/
+│       ├── solution.c done & checked
+│       ├── input.txt no need to check
+│       └── output.txt done & checked
 └── CS50-and-additional-exercises/
     ├── credit-card-number-validator/
     │   ├── credit.c done & checked
