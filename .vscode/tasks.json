@@ -7,10 +7,12 @@
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
+                "-ggdb3",
                 "${file}",
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}",
                 "-lm",
+                "-lcs50"
             ],
             "options": {
                 "cwd": "${fileDirname}"

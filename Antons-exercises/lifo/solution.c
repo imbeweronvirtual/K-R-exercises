@@ -4,16 +4,18 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 typedef struct
 {
     unsigned int m_size;
-    unsigned int m_array[1000];
+    unsigned int *m_array;
 } Lifo_stack;
 
 int lifo_stack_add(Lifo_stack *struct_p, unsigned int num);
 int lifo_stack_delete(Lifo_stack *struct_p);
 int lifo_stack_output(Lifo_stack *struct_p);
+int uiarr_expand_compress(unsigned int **ptr, int compress_need, unsigned int *current_size);
 
 int main()
 {
@@ -42,22 +44,22 @@ int main()
 
     lifo_stack_output(&example);
 
+    free(example.m_array);
     return 0;
 }
 
 int lifo_stack_add(Lifo_stack *struct_p, unsigned int num)
 {
-    if ((struct_p->m_size) + 1 > sizeof(struct_p->m_array) / sizeof(unsigned int))
+    if (uiarr_expand_compress(&struct_p->m_array, 0, &struct_p->m_size) == 1)
     {
-        return 1;
+        free(struct_p->m_array);
     }
-    
-    for (int i = (struct_p->m_size) - 1; i >= 0; i--)
+
+    for (int i = (struct_p->m_size) - 2; i >= 0; i--)
     {
         struct_p->m_array[i + 1] = struct_p->m_array[i];
     }
     struct_p->m_array[0] = num;
-    struct_p->m_size++;
 
     return 0;
 }
@@ -69,11 +71,15 @@ int lifo_stack_delete(Lifo_stack *struct_p)
         return 1;
     }
 
-    for (size_t i = 0; i < struct_p->m_size; i++)
+    for (size_t i = 0; i < struct_p->m_size - 1; i++)
     {
         struct_p->m_array[i] = struct_p->m_array[i + 1];
     }
-    struct_p->m_size--;
+
+    if (uiarr_expand_compress(&struct_p->m_array, 1, &struct_p->m_size) == 1)
+    {
+        free(struct_p->m_array);
+    }
     
     return 0;
 }
@@ -89,3 +95,56 @@ int lifo_stack_output(Lifo_stack *struct_p)
     return 0;
 }
 
+int uiarr_expand_compress(unsigned int **ptr, int compress_need, unsigned int *current_size)
+{
+    int new_size = compress_need ? *current_size - 1 : *current_size + 1;
+
+    if (compress_need)
+    {
+        if (*current_size == 1)
+        {
+            free(*ptr);
+        }
+        if (*current_size < 1)
+        {
+            return 1;
+        }
+        
+        unsigned int *temp = malloc(new_size * sizeof(unsigned int));
+
+        if (temp == NULL)
+        {
+            return 1;
+        }
+
+        memcpy(temp, *ptr, new_size * sizeof(unsigned int));
+
+        free(*ptr);
+
+        *ptr = temp;
+        *current_size = new_size;
+
+        return 0;
+    }
+    else
+    {
+        unsigned int *temp = malloc(new_size * sizeof(unsigned int));
+    
+        if (temp == NULL)
+        {
+            return 1;
+        }
+    
+        memcpy(temp, *ptr, *current_size * sizeof(unsigned int));
+    
+        if (*current_size > 0)
+        {
+            free(*ptr);
+        }
+        
+        *ptr = temp;
+        *current_size = new_size;
+    
+        return 0;
+    }   
+}
