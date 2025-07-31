@@ -120,16 +120,44 @@ K-R-EXERCISES/
     │   └── flowchart done
     ├── email-validator/
     │   └── email-validation.c done
+    ├── filter-more/
+    │   ├── images/
+    │   │   ├── courtyard.bmp
+    │   │   ├── stadium.bmp
+    │   │   ├── tower.bmp
+    │   │   └── yard.bmp
+    │   ├── bmp.h
+    │   ├── filter.c
+    │   ├── helpers.c -less version done -full not done
+    │   ├── helpers.h
+    │   └── Makefile.txt
     ├── readability/
     │   └── readability.c done
+    ├── recover/
+    │   ├── card.raw
+    │   └── recover.c done
     ├── runoff/
     │   └── runoff.c done
-    ├── scrabble
-    │   └── scrabble.c
+    ├── scrabble/
+    │   └── scrabble.c done
+    ├── sentimental-credit/
+    │   └── credit.py done
+    ├── sentimental-readability/
+    │   └── readability.py done
+    ├── sequences/
+    │   ├── 1.txt
+    │   ├── database.csv
+    │   └── dna.py done
+    ├── speller/
+    │   └── dictionary.c done
     ├── substitution/
     │   └── substitution.c done
     ├── tideman/
     │   └── tideman.c done
-    └── tree-painting/
-        └── tree-painting.c done
+    ├── tree-painting/
+    │   └── tree-painting.c done
+    └── volume/
+        ├── input.wav
+        ├── output.wav
+        └── volume.c done
 ```
